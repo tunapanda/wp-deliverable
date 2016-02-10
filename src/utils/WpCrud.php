@@ -315,6 +315,7 @@ abstract class WpCrud extends WP_List_Table {
 				"spec"=>$fieldspec,
 				"field"=>$fieldspec->field,
 				"label"=>$fieldspec->label,
+				"description"=>$fieldspec->description,
 				"value"=>$v,
 			);
 		}

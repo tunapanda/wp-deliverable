@@ -8,11 +8,19 @@ class WpCrudFieldSpec {
 	public $label;
 	public $type;
 	public $options;
+	public $description;
 
 	public function __construct($field) {
 		$this->field=$field;
 		$this->label=$field;
 		$this->type="text";
+		$this->description=NULL;
+	}
+
+	public function description($description) {
+		$this->description=$description;
+
+		return $this;
 	}
 
 	public function label($label) {

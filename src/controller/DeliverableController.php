@@ -10,9 +10,24 @@ class DeliverableController extends WpCrud {
 	public function __construct() {
 		parent::__construct("Deliverables");
 
-		$this->addField("title")->label("Title");
+		$this->addField("title")->label("Title")->description("Choose a title for the deliverable");
+		$this->addField("description")->label("Description");
+		$this->addField("reviewGroup")->label("Review Group")
+			->description("Which group of users is responsible for reviewing work submitted?")
+			->options(array(
+				"programmers"=>"Programmers",
+				"designers"=>"Designers",
+			));
 
-		$this->setListFields(array("title"));
+		$this->addField("type")->label("Type")
+			->description("How should the work be submitted?")
+			->options(array(
+				"url"=>"Url",
+				"zip"=>"Uploaded Zip File",
+				"pdf"=>"Uploaded Pdf File",
+			));
+
+		$this->setListFields(array("slug","title","reviewGroup","type"));
 	}
 
 	protected function createItem() {
@@ -28,6 +43,7 @@ class DeliverableController extends WpCrud {
 	}
 
 	protected function saveItem($item) {
+		$item->slug=Deliverable::getUniqueSlug($item->title,$item->id);
 		$item->save();
 	}
 

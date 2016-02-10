@@ -41,6 +41,9 @@
 								value="<?php echo esc_attr($field['value'])?>"
 								size="50" class="code" placeholder="">
 					<?php } ?>
+					<?php if ($field["description"]) { ?>
+						<p class="description"><?php echo $field["description"]; ?></p>
+					<?php } ?>
 				</td>
 			</tr>
 		<?php } ?>

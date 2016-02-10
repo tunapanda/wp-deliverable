@@ -1,0 +1,3 @@
+[submodule "submodules/smartrecord"]
+	path = submodules/smartrecord
+	url = https://github.com/limikael/smartrecord

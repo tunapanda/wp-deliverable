@@ -10,8 +10,9 @@ class DeliverableController extends WpCrud {
 	public function __construct() {
 		parent::__construct("Deliverables");
 
-		$this->addField("title")->label("Title")->description("Choose a title for the deliverable");
-		$this->addField("description")->label("Description");
+		$this->addField("title")->label("Title")->description("Choose a title for the deliverable.");
+		$this->addField("description")->label("Description")->type("textarea")
+			->description("Enter a description for the deliverable that is to be submitted.");
 		$this->addField("reviewGroup")->label("Review Group")
 			->description("Which group of users is responsible for reviewing work submitted?")
 			->options(array(

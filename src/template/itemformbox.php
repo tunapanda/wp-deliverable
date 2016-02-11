@@ -33,6 +33,11 @@
 							    });
 							});
 						</script>
+					<?php } else if ($field["spec"]->type=="textarea") { ?>
+						<textarea id="<?php echo $field["field"] ?>"
+							name="<?php echo $field["field"] ?>"
+							style="width: 95%; height: 100px" class="code"
+						><?php echo esc_attr($field['value'])?></textarea>
 					<?php } else { ?>
 						<input id="<?php echo $field["field"] ?>" 
 								name="<?php echo $field["field"] ?>" 

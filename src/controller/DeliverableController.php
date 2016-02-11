@@ -4,21 +4,23 @@ namespace wpdeliverable;
 
 require_once __DIR__."/../model/Deliverable.php";
 require_once __DIR__."/../utils/WpCrud.php";
+require_once __DIR__."/../utils/WpGroup.php";
 
 class DeliverableController extends WpCrud {
 
 	public function __construct() {
 		parent::__construct("Deliverables");
 
+		$groupOptions=array();
+		foreach (WpGroup::getAllGroups() as $group)
+			$groupOptions[$group->getSlug()]=$group->getLabel();
+
 		$this->addField("title")->label("Title")->description("Choose a title for the deliverable.");
 		$this->addField("description")->label("Description")->type("textarea")
 			->description("Enter a description for the deliverable that is to be submitted.");
 		$this->addField("reviewGroup")->label("Review Group")
 			->description("Which group of users is responsible for reviewing work submitted?")
-			->options(array(
-				"programmers"=>"Programmers",
-				"designers"=>"Designers",
-			));
+			->options($groupOptions);
 
 		$this->addField("type")->label("Type")
 			->description("How should the work be submitted?")

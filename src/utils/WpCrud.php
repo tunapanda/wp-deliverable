@@ -167,6 +167,12 @@ abstract class WpCrud extends WP_List_Table {
 			);
 		}
 
+		$fieldspec=$this->getFieldSpec($column_name);
+
+		if ($fieldspec->type=="select") {
+			return $fieldspec->options[$item->$column_name];
+		}
+
 		return $item->$column_name;
 	}
 

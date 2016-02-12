@@ -11,6 +11,8 @@ class DeliverableController extends WpCrud {
 	public function __construct() {
 		parent::__construct("Deliverables");
 
+		$this->setSubmenuSlug("deliverables");
+
 		$groupOptions=array();
 		foreach (WpGroup::getAllGroups() as $group)
 			$groupOptions[$group->getSlug()]=$group->getLabel();

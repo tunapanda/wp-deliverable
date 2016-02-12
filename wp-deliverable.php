@@ -13,7 +13,7 @@ Description: Lets learners submit deliverables and have coaches review them.
 Version: 0.0.1
 */
 
-DeliverableController::init();
+//DeliverableController::init();
 
 /**
  * Create review page.
@@ -22,25 +22,30 @@ function deliverable_create_review_page() {
 	echo "hello...";
 }
 
+function deliverable_create_deliverables_page() {
+	echo "world...";
+}
+
 /**
  * Listener for the admin_menu action.
  */
 function deliverable_admin_menu() {
-/*	add_menu_page(
-		"Deliverables",
-		"Deliverables",
-		"manage_options",
-		"Deliverables_list",
-		"deliverable_create_deliverables_page"
-	);*/
+	add_menu_page(
+	    "Deliverables",
+	    "Deliverables",
+	    "manage_options",
+	    "deliverables"
+	);
+
+	DeliverableController::admin_menu();
 
 	add_submenu_page(
-		'Deliverables',
-		'Review Submissions',
-		'Review Submissions',
-		'manage_options',
-		'manage_deliverables',
-		'deliverable_create_review_page'
+	    'deliverables',
+	    'Review Submissions',
+	    'Review Submissions',
+	    'manage_options',
+	    'manage_deliverables',
+	    'deliverable_create_review_page'
 	);
 }
 

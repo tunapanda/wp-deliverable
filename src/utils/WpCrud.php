@@ -280,7 +280,7 @@ abstract class WpCrud extends WP_List_Table {
 
 		$template->set("title",$this->typeName);
 		$template->set("nonce",wp_create_nonce(basename(__FILE__)));
-		$template->set("backlink",get_admin_url(get_current_blog_id(), 'admin.php?page='.$this->typeName));
+		$template->set("backlink",get_admin_url(get_current_blog_id(), 'admin.php?page='.strtolower($this->typeName)));
 		$template->set("metabox",$this->typeId);
 		$template->set("metaboxContext","normal_".$this->typeId);
 		$template->set("item",$item);
@@ -397,10 +397,23 @@ abstract class WpCrud extends WP_List_Table {
 		$instance=new static();
 
 		if ($instance->submenuSlug)
-			$screenId=add_submenu_page($instance->submenuSlug,$instance->typeName, $instance->typeName, "activate_plugins", $instance->typeName, array($instance,"list_handler"));
+			$screenId=add_submenu_page(
+				$instance->submenuSlug,
+				"Manage ".$instance->typeName,
+				"Manage ".$instance->typeName,
+				"manage_options",
+				strtolower($instance->typeName),
+				array($instance,"list_handler")
+			);
 
 		else
-			$screenId=add_menu_page($instance->typeName, $instance->typeName, "activate_plugins", $instance->typeName, array($instance,"list_handler"));
+			$screenId=add_menu_page(
+				$instance->typeName,
+				$instance->typeName,
+				"manage_options",
+				strtolower($instance->typeName),
+				array($instance,"list_handler")
+			);
 
 	    add_submenu_page(NULL, "Edit ".$instance->typeName, "Edit ".$instance->typeName, 'activate_plugins', $instance->typeId.'_form', array($instance,"form_handler"));
 	}

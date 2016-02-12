@@ -32,6 +32,7 @@ abstract class WpCrud extends WP_List_Table {
 	private $listFields;
 	private $editFields;
 	private $submenuSlug;
+	private $description;
 
 	/**
 	 * Constructor.
@@ -48,6 +49,13 @@ abstract class WpCrud extends WP_List_Table {
 
 		wp_register_script("jquery-datetimepicker",plugins_url()."/wp-deliverable/res/jquery.datetimepicker.js");
 		wp_register_style("jquery-datetimepicker",plugins_url()."/wp-deliverable/res/jquery.datetimepicker.css");
+	}
+
+	/**
+	 * Set description.
+	 */
+	public function setDescription($description) {
+		$this->description=$description;
 	}
 
 	/**
@@ -180,8 +188,6 @@ abstract class WpCrud extends WP_List_Table {
 	 * Render the page.
 	 */
 	public function list_handler() {
-		//echo "list handler, called=".get_called_class();
-
 		$template=new Template(__DIR__."/../template/itemlist.php");
 
 		if (isset($_REQUEST["action"]) && $_REQUEST["action"]=="delete") {
@@ -210,6 +216,7 @@ abstract class WpCrud extends WP_List_Table {
 
 		$this->items=$this->getAllItems();
 
+		$template->set("description",$this->description);
 		$template->set("title",$this->typeName);
 		$template->set("typeId",$this->typeId);
 		$template->set("listTable",$this);

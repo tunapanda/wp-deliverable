@@ -33,6 +33,12 @@ class DeliverableController extends WpCrud {
 			));
 
 		$this->setListFields(array("slug","title","reviewGroup","type"));
+
+		$this->setDescription(
+			"Use this page to create deliverables. ".
+			"To create a section on a post or page for users to submit deliverables, use the shortcode:".
+			"<pre>[deliverable slug='...']</pre>"
+		);
 	}
 
 	protected function createItem() {

@@ -5,6 +5,10 @@
 		<a class="add-new-h2" href="<?php echo $addlink ;?>">Add new</a>
 	</h2>
 
+	<?php if (!empty($description)) { ?>
+		<p><?php echo $description; ?></p>
+	<?php } ?>
+
 	<?php if (!empty($notice)): ?>
 		<div id="notice" class="error"><p><?php echo $notice ?></p></div>
 	<?php endif;?>

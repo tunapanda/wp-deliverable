@@ -67,4 +67,60 @@ class Deliverable extends SmartRecord {
 
 		return $submission;
 	}
+
+	/**
+	 * Create or update submission record for the current user.
+	 * Relies on the current wordpress user, $_REQUEST and $_FILES.
+	 */
+	public function processSubmission() {
+		$user=wp_get_current_user();
+		if (!$user|| !$user->ID)
+			throw new Exception("Not logged in");
+
+		$submission=DeliverableSubmission::findOneBy(array(
+			"deliverable_id"=>$this->id,
+			"user_id"=>$user->ID
+		));
+
+		if (!$submission) {
+			$submission=new DeliverableSubmission();
+			$submission->deliverable_id=$this->id;
+			$submission->user_id=$user->ID;
+		}
+
+		$submission->type=$this->type;
+
+		switch ($submission->type) {
+			case "url":
+				$submission->content=$_REQUEST["deliverable"];
+				break;
+
+			case "zip":
+			case "pdf":
+				$deliverableDir=wp_upload_dir()["basedir"]."/deliverables";
+
+				$prefix=md5(uniqid());
+				$fileName=$prefix."-".$_FILES["deliverable"]["name"];
+				$submission->content=$fileName;
+
+				$res=move_uploaded_file($_FILES["deliverable"]["tmp_name"],$deliverableDir."/".$fileName);
+				if (!$res)
+					throw new Exception("Unable to move uploaded file.");
+
+				$submission->save();
+				break;
+
+			default:
+				throw new Exception("Unknown submission type");
+				break;
+		}
+
+		$submission->review_user_id=0;
+		$submission->reviewStamp=0;
+		$submission->comment=0;
+		$submission->state="pending";
+
+		$submission->submitStamp=current_time("timestamp");
+		$submission->save();
+	}
 }

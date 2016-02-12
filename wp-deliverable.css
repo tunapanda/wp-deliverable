@@ -1,0 +1,73 @@
+.deliverable.container {
+	border: 1px solid #ddd;
+	background: #fcfcfc;
+	border-radius: 5px;
+	padding: 10px;
+	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+	position: relative;
+}
+
+.deliverable .state-icon {
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	width: 64px;
+	height: 64px;
+}
+
+.deliverable.container h2 {
+	color: #444;
+	padding: 0;
+	margin: 0;
+	margin-bottom: 10px;
+}
+
+.deliverable.notification {
+	color: #080;
+	background: #8f8;
+	border-radius: 5px;
+	padding: 10px;
+	border: 1px solid #080;
+	font-weight: bold;
+}
+
+.deliverable a {
+	color: #288;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.deliverable a:hover {
+	text-decoration: underline;
+}
+
+.deliverable.comment {
+	border: 1px solid #ddd;
+	background: #fcfcfc;
+	border-radius: 5px;
+	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+	margin-top: 20px;
+	margin-left: 68px;
+	position: relative;
+	min-height: 80px;
+}
+
+.deliverable.comment .avatar {
+	position: absolute;
+	left: -68px;
+	top: 0px;
+}
+
+.deliverable.comment .header {
+	border-radius: 5px;
+	background: #ddd;
+	padding: 10px;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+	color: #444;
+}
+
+.deliverable.comment .body {
+	padding: 10px;
+}
+

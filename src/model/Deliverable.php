@@ -51,4 +51,20 @@ class Deliverable extends SmartRecord {
 
 		return $slug;
 	}
+
+	/**
+	 * Get submission for current user.
+	 */
+	public function getSubmissionForCurrentUser() {
+		$user=wp_get_current_user();
+		if (!$user|| !$user->ID)
+			return NULL;
+
+		$submission=DeliverableSubmission::findOneBy(array(
+			"deliverable_id"=>$this->id,
+			"user_id"=>$user->ID
+		));
+
+		return $submission;
+	}
 }

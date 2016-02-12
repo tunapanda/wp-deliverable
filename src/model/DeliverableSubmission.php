@@ -137,4 +137,11 @@ class DeliverableSubmission extends SmartRecord {
 
 		return TRUE;
 	}
+
+	/**
+	 * Get corresponding deliverable.
+	 */
+	public function getDeliverable() {
+		return Deliverable::findOne($this->deliverable_id);
+	}
 }

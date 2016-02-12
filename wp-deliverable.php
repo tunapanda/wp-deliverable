@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__."/src/controller/DeliverableController.php";
+require_once __DIR__."/src/controller/ReviewPageController.php";
 require_once __DIR__."/src/controller/DeliverableShortcode.php";
 require_once __DIR__."/src/model/Deliverable.php";
 require_once __DIR__."/src/model/DeliverableSubmission.php";
@@ -9,6 +10,7 @@ use wpdeliverable\Deliverable;
 use wpdeliverable\DeliverableSubmission;
 use wpdeliverable\DeliverableController;
 use wpdeliverable\DeliverableShortcode;
+use wpdeliverable\ReviewPageController;
 
 /*
 Plugin Name: Deliverable
@@ -21,7 +23,8 @@ Version: 0.0.1
  * Create review page.
  */
 function deliverable_create_review_page() {
-	echo "hello...";
+	$reviewPageController=new ReviewPageController();
+	$reviewPageController->process();
 }
 
 /**
@@ -66,6 +69,7 @@ function deliverable_enqueue_scripts() {
 }
 
 add_action("wp_enqueue_scripts","deliverable_enqueue_scripts");
+add_action("admin_enqueue_scripts","deliverable_enqueue_scripts");
 
 /** 
  * Activation hook.

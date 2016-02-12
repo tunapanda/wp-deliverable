@@ -76,6 +76,44 @@ class WpGroup {
 	}
 
 	/**
+	 * Get groups where the currently logged in user belong.
+	 */
+	public static function getGroupsForCurrentUser() {
+		return WpGroup::getGroupsForUser(wp_get_current_user());
+	}
+
+	/**
+	 * Get groups that the user belong to.
+	 */
+	public static function getGroupsForUser($user) {
+		global $wpdb;
+
+		if (!$user->ID)
+			return array();
+
+		$q=$wpdb->prepare(
+			"SELECT     slug ".
+			"FROM       {$wpdb->prefix}term_relationships AS r ".
+			"LEFT JOIN  {$wpdb->prefix}term_taxonomy AS x ".
+			"ON         r.term_taxonomy_id=x.term_taxonomy_id ".
+			"LEFT JOIN  wp_terms AS t ".
+			"ON         x.term_id=t.term_id ".
+			"WHERE      r.object_id=%d ".
+			"AND        taxonomy='user-group'",
+			$user->ID);
+
+		$slugs=$wpdb->get_col($q);
+		if ($wpdb->last_error)
+			throw new Exception($wpdb->last_error);
+
+		$groups=array();
+		foreach ($slugs as $slug)
+			$groups[]=WpGroup::getGroupBySlug("user-groups:".$slug);
+
+		return $groups;
+	}
+
+	/**
 	 * Get group by slug.
 	 */
 	public static function getGroupBySlug($slug) {

@@ -123,4 +123,14 @@ class Deliverable extends SmartRecord {
 		$submission->submitStamp=current_time("timestamp");
 		$submission->save();
 	}
+
+	/**
+	 * Get pending submissions for this deliverable.
+	 */
+	public function getPendingSubmissions() {
+		return DeliverableSubmission::findAllBy(array(
+			"deliverable_id"=>$this->id,
+			"state"=>"pending"
+		));
+	}
 }

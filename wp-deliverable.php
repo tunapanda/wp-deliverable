@@ -5,12 +5,16 @@ require_once __DIR__."/src/controller/ReviewPageController.php";
 require_once __DIR__."/src/controller/DeliverableShortcode.php";
 require_once __DIR__."/src/model/Deliverable.php";
 require_once __DIR__."/src/model/DeliverableSubmission.php";
+require_once __DIR__."/src/utils/Xapi.php";
+require_once __DIR__."/src/utils/Template.php";
 
 use wpdeliverable\Deliverable;
 use wpdeliverable\DeliverableSubmission;
 use wpdeliverable\DeliverableController;
 use wpdeliverable\DeliverableShortcode;
 use wpdeliverable\ReviewPageController;
+use wpdeliverable\Xapi;
+use wpdeliverable\Template;
 
 /*
 Plugin Name: Deliverable
@@ -25,6 +29,14 @@ Version: 0.0.1
 function deliverable_create_review_page() {
 	$reviewPageController=new ReviewPageController();
 	$reviewPageController->process();
+}
+
+/**
+ * Create xapi settings page.
+ */
+function deliverable_create_xapi_settings_page() {
+	$t=new Template(__DIR__."/src/template/xapisettings.php");
+	$t->show();
 }
 
 /**
@@ -48,9 +60,29 @@ function deliverable_admin_menu() {
 	    'manage_deliverables',
 	    'deliverable_create_review_page'
 	);
+
+	add_submenu_page(
+	    'deliverables',
+	    'xAPI Settings',
+	    'xAPI Settings',
+	    'manage_options',
+	    'deliverable_xapi_settings',
+	    'deliverable_create_xapi_settings_page'
+	);
 }
 
 add_action('admin_menu','deliverable_admin_menu');
+
+/**
+ * Admin init.
+ */
+function deliverable_admin_init() {
+	register_setting("deliverable","deliverable_xapi_endpoint_url");
+	register_setting("deliverable","deliverable_xapi_username");
+	register_setting("deliverable","deliverable_xapi_password");
+}
+
+add_action('admin_init','deliverable_admin_init');
 
 /**
  * Handle deliverable shortcode.

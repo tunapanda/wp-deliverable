@@ -2,11 +2,15 @@
 	<h1>Submitted deliverables pending review</h1>
 
 	<p>
-		Showing submissions for the groups you belong to:<br/>
+		Showing submissions for the groups you belong to.<br/>
 		<?php foreach ($groups as $group) { ?>
 			<span class="deliverable group-tag"><?php echo $group->getLabel(); ?></span>
 		<?php } ?>
 	</p>
+
+	<?php if (!sizeof($submissions)) { ?>
+		<p><i>There are currently no deliverables submitted for review.</i></p>
+	<?php } ?>
 
 	<?php foreach ($submissions as $submission) { ?>
 		<div class="deliverable comment">

@@ -7,6 +7,7 @@ require_once __DIR__."/src/model/Deliverable.php";
 require_once __DIR__."/src/model/DeliverableSubmission.php";
 require_once __DIR__."/src/utils/Xapi.php";
 require_once __DIR__."/src/utils/Template.php";
+require_once __DIR__."/src/plugin/DeliverableSyncer.php";
 
 use wpdeliverable\Deliverable;
 use wpdeliverable\DeliverableSubmission;
@@ -15,6 +16,7 @@ use wpdeliverable\DeliverableShortcodeController;
 use wpdeliverable\ReviewPageController;
 use wpdeliverable\Xapi;
 use wpdeliverable\Template;
+use wpdeliverable\DeliverableSyncer;
 
 /*
 Plugin Name: Deliverable
@@ -134,3 +136,11 @@ function deliverable_uninstall() {
 }
 
 register_uninstall_hook(__FILE__,'deliverable_uninstall');
+
+/**
+ * Syncer.
+ */
+add_filter("remote-syncers",function($syncers) {
+	$syncers[]=new DeliverableSyncer();
+	return $syncers;
+});

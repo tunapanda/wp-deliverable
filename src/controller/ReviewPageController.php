@@ -24,18 +24,14 @@ class ReviewPageController {
 				$submission=DeliverableSubmission::findOne($_REQUEST["submissionId"]);
 
 				if (isset($_REQUEST["approve"]))
-					$submission->state="approved";
+					$submission->setReviewed("approved",$_REQUEST["comment"]);
 
-				if (isset($_REQUEST["reject"]))
-					$submission->state="rejected";
+				else if (isset($_REQUEST["reject"]))
+					$submission->setReviewed("rejected",$_REQUEST["comment"]);
 
-				$userId=get_current_user_id();
-				if (!$userId)
-					throw new Exception("Not logged in???");
+				else
+					throw new Exception("Rejected or approved?");
 
-				$submission->reviewStamp=current_time("timestamp");
-				$submission->review_user_id=$userId;
-				$submission->comment=$_REQUEST["comment"];
 				$submission->save();
 
 				echo "<div class='updated'><p>The submission was marked as {$submission->state}.</p></div>";

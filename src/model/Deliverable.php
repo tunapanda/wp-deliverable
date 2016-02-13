@@ -70,7 +70,8 @@ class Deliverable extends SmartRecord {
 
 	/**
 	 * Create or update submission record for the current user.
-	 * Relies on the current wordpress user, $_REQUEST and $_FILES.
+	 * Relies on the current wordpress user, and expects the submitted
+	 * material to be in $_REQUEST[deliverable] or $_FILES[deliverable].
 	 */
 	public function processSubmission() {
 		$user=wp_get_current_user();

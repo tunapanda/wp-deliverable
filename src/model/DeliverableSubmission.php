@@ -5,6 +5,7 @@ namespace wpdeliverable;
 require_once __DIR__."/../../ext/smartrecord/SmartRecord.php";
 
 use \SmartRecord;
+use \Exception;
 
 /**
  * A cashgame.
@@ -143,5 +144,25 @@ class DeliverableSubmission extends SmartRecord {
 	 */
 	public function getDeliverable() {
 		return Deliverable::findOne($this->deliverable_id);
+	}
+
+	/**
+	 * Set as reviewed by the current user, at the current time,
+	 * with the comment provided as the comment parameter.
+	 * Does not save the record to the database.
+	 */
+	public function setReviewed($state, $comment) {
+		if (!in_array($state,array("rejected","approved")))
+			throw new Exception("Bad review state");
+
+		$this->state=$state;
+
+		$userId=get_current_user_id();
+		if (!$userId)
+			throw new Exception("Not logged in???");
+
+		$this->reviewStamp=current_time("timestamp");
+		$this->review_user_id=$userId;
+		$this->comment=$comment;
 	}
 }

@@ -263,5 +263,6 @@ class DeliverableSubmission extends SmartRecord {
 		);
 
 		$xapi->putStatement($statement);
+		do_action("deliverable-xapi-post-save",$statement);
 	}
 }

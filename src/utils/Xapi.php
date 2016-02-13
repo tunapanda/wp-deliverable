@@ -2,6 +2,8 @@
 
 namespace wpdeliverable;
 
+use \Exception;
+
 /**
  * Xapi.
  */
@@ -107,7 +109,7 @@ class Xapi {
 			//throw new Exception($res);
 
 			if (in_array("message",$decoded) && $decoded["message"])
-				throw new Exception($decoded["message"]);
+				throw new Exception(print_r($decoded["message"],TRUE));
 
 			if (is_string($res))
 				throw new Exception($res);

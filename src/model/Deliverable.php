@@ -30,6 +30,13 @@ class Deliverable extends SmartRecord {
 	}
 
 	/**
+	 * Get title.
+	 */
+	public function getTitle() {
+		return $this->title;
+	}
+
+	/**
 	 * Get unique slug.
 	 */
 	public static function getUniqueSlug($title, $id) {
@@ -108,7 +115,6 @@ class Deliverable extends SmartRecord {
 				if (!$res)
 					throw new Exception("Unable to move uploaded file.");
 
-				$submission->save();
 				break;
 
 			default:
@@ -120,8 +126,10 @@ class Deliverable extends SmartRecord {
 		$submission->reviewStamp=0;
 		$submission->comment=0;
 		$submission->state="pending";
-
 		$submission->submitStamp=current_time("timestamp");
+		$submission->contextPermalink=get_permalink();
+
+		$submission->sendAttemptedStatement();
 		$submission->save();
 	}
 
@@ -139,7 +147,7 @@ class Deliverable extends SmartRecord {
 	 * Get url to use when this deliverable is used in an
 	 * xAPI context.
 	 */
-	public function getObjectUrl() {
+	public function getActivityUrl() {
 		return plugins_url()."/wp-deliverable/deliverable.php/".$this->slug;
 	}
 }

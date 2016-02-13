@@ -3,6 +3,7 @@
 namespace wpdeliverable;
 
 require_once __DIR__."/../../ext/smartrecord/SmartRecord.php";
+require_once __DIR__."/../plugin/DeliverablePlugin.php";
 
 use \SmartRecord;
 use \Exception;
@@ -35,6 +36,7 @@ class DeliverableSubmission extends SmartRecord {
 		self::field("comment","text not null");
 		self::field("submitStamp","integer not null");
 		self::field("reviewStamp","integer not null");
+		self::field("contextPermalink","varchar(255) not null");
 	}
 
 	/**
@@ -164,5 +166,102 @@ class DeliverableSubmission extends SmartRecord {
 		$this->reviewStamp=current_time("timestamp");
 		$this->review_user_id=$userId;
 		$this->comment=$comment;
+
+		if ($this->state=="approved")
+			$this->sendCompletedStatement();
+	}
+
+	/**
+	 * Send submitted statement to xAPI.
+	 */
+	public function sendAttemptedStatement() {
+		$xapi=DeliverablePlugin::instance()->getXapi();
+		if (!$xapi)
+			return;
+
+		$user=$this->getUser();
+
+		$statement=array(
+			"actor"=>array(
+				"mbox"=>"mailto:".$user->user_email,
+				"name"=>$user->display_name
+			),
+
+			"object"=>array(
+				"objectType"=>"Activity",
+				"id"=>$this->getDeliverable()->getActivityUrl(),
+				"definition"=>array(
+					"name"=>array(
+						"en-US"=>$this->getDeliverable()->getTitle()
+					)
+				)
+			),
+
+			"verb"=>array(
+				"id"=>"http://adlnet.gov/expapi/verbs/attempted"
+			),
+
+			"context"=>array(
+				"contextActivities"=>array(
+					"category"=>array(
+						array(
+							"id"=>$this->contextPermalink,
+							"definition"=>array(
+								"type"=>"http://activitystrea.ms/schema/1.0/page",
+							)
+						)
+					)
+				)
+			),
+		);
+
+		$xapi->putStatement($statement);
+	}
+
+	/**
+	 * Send completed statement to xAPI.
+	 */
+	public function sendCompletedStatement() {
+		$xapi=DeliverablePlugin::instance()->getXapi();
+		if (!$xapi)
+			return;
+
+		$user=$this->getUser();
+
+		$statement=array(
+			"actor"=>array(
+				"mbox"=>"mailto:".$user->user_email,
+				"name"=>$user->display_name
+			),
+
+			"object"=>array(
+				"objectType"=>"Activity",
+				"id"=>$this->getDeliverable()->getActivityUrl(),
+				"definition"=>array(
+					"name"=>array(
+						"en-US"=>$this->getDeliverable()->getTitle()
+					)
+				)
+			),
+
+			"verb"=>array(
+				"id"=>"http://adlnet.gov/expapi/verbs/completed"
+			),
+
+			"context"=>array(
+				"contextActivities"=>array(
+					"category"=>array(
+						array(
+							"id"=>$this->contextPermalink,
+							"definition"=>array(
+								"type"=>"http://activitystrea.ms/schema/1.0/page",
+							)
+						)
+					)
+				)
+			),
+		);
+
+		$xapi->putStatement($statement);
 	}
 }

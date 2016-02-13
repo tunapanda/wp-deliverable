@@ -2,7 +2,7 @@
 
 require_once __DIR__."/src/controller/DeliverableController.php";
 require_once __DIR__."/src/controller/ReviewPageController.php";
-require_once __DIR__."/src/controller/DeliverableShortcode.php";
+require_once __DIR__."/src/controller/DeliverableShortcodeController.php";
 require_once __DIR__."/src/model/Deliverable.php";
 require_once __DIR__."/src/model/DeliverableSubmission.php";
 require_once __DIR__."/src/utils/Xapi.php";
@@ -11,7 +11,7 @@ require_once __DIR__."/src/utils/Template.php";
 use wpdeliverable\Deliverable;
 use wpdeliverable\DeliverableSubmission;
 use wpdeliverable\DeliverableController;
-use wpdeliverable\DeliverableShortcode;
+use wpdeliverable\DeliverableShortcodeController;
 use wpdeliverable\ReviewPageController;
 use wpdeliverable\Xapi;
 use wpdeliverable\Template;
@@ -88,6 +88,8 @@ add_action('admin_init','deliverable_admin_init');
  * Handle deliverable shortcode.
  */
 function deliverable_deliverable($params) {
+	$shortcodeController=new DeliverableShortcodeController();
+	return $shortcodeController->deliverable($params);
 	return DeliverableShortcode::process($params);
 }
 

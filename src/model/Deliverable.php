@@ -134,4 +134,12 @@ class Deliverable extends SmartRecord {
 			"state"=>"pending"
 		));
 	}
+
+	/**
+	 * Get url to use when this deliverable is used in an
+	 * xAPI context.
+	 */
+	public function getObjectUrl() {
+		return plugins_url()."/wp-deliverable/deliverable.php/".$this->slug;
+	}
 }

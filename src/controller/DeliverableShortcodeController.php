@@ -7,12 +7,12 @@ use \Exception;
 /**
  * Deliverable shortcode.
  */
-class DeliverableShortcode {
+class DeliverableShortcodeController {
 
 	/**
 	 * Deliverable shortcode.
 	 */
-	public static function process($params) {
+	public function deliverable($params) {
 		$deliverable=Deliverable::findOneBy("slug",$params["slug"]);
 		if (!$deliverable)
 			throw new Exception("Deliverable not found");

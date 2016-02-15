@@ -21,6 +21,7 @@ use wpdeliverable\DeliverableSyncer;
 /*
 Plugin Name: Deliverable
 Plugin URI: http://github.com/tunapanda/wp-deliverable
+GitHub Plugin URI: http://github.com/tunapanda/wp-deliverable
 Description: Lets learners submit deliverables and have coaches review them.
 Version: 0.0.1
 */

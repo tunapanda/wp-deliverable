@@ -15,8 +15,6 @@ $users=$groups[0]->getUsers();
 
 print_r($users);*/
 
-//echo ABSPATH;
+print_r(WpGroup::getGroupBySlug("groups:programmers-group")->getUsers());
 
-//print_r(WpGroup::getGroupBySlug("user-groups:programmers")->getUsers());
-
-print_r(WpGroup::getGroupsForCurrentUser());
+//print_r(WpGroup::getGroupsForCurrentUser());

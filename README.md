@@ -20,7 +20,7 @@ This is where the teacher/reviewer checks any submitted work. Users only see sub
 This plugin sends [statements](https://tincanapi.com/statements-101/) to a Learning Record Store(LRS). We use [Learning Locker](https://learninglocker.net/) as our LRS. If you have an LRS setup just input the xAPI endpoint, usename and password.
 
 After you have created a delivarable, it needs to be visible to the learneres. This is achieved by including the following shortcode.
-![deliv-shortcode](). A delivarable ends up being a swagifact. 
+![deliv-shortcode](https://github.com/tunapanda/wp-deliverable/blob/master/img/deliv-shortcode.png). </br>A delivarable ends up being a swagifact. 
 
 This is what it looks like to the learner.
-![deliv-front]()
+![deliv-front](https://github.com/tunapanda/wp-deliverable/blob/master/img/deliv-front.png)

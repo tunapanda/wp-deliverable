@@ -9,7 +9,7 @@ After installation a Delivarables options is created in the admin menu. </br>
 The menu provide three menu items</br>
 * Manage delivarables</br>
 This is where you can add a new deliverable. The image below illustrate how this works. 
-![delivarables]
+![delivarables](https://github.com/tunapanda/wp-deliverable/blob/master/img/delivarables.png)
 Note: The review group is created in the [Groups](https://wordpress.org/plugins/groups/) plugin. I had already created a programmers group.
 
 * What can it be used for?

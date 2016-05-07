@@ -13,9 +13,9 @@ This is where you can add a new deliverable. The image below illustrate how this
 Note:</br> 
 * The review group is created in the [Groups](https://wordpress.org/plugins/groups/) plugin. I had already created a programmers group. </br>
 * A delivarable in form of a  url, zip file or a PDF.
-* Targeted users are content/knowledge creators.
+* Targeted users are content/knowledge creators.</br>
 ####2) Review submissions
-This is where the teacher/reviewer checks any submitted work. Users only see submitted items if they are part of a review group that the work was targeted to. 
+This is where the teacher/reviewer checks any submitted work. Users only see submitted items if they are part of a review group that the work was targeted to. </br>
 ####3) xAPI settings
 This plugin sends [statements](https://tincanapi.com/statements-101/) to a Learning Record Store(LRS). We use [Learning Locker](https://learninglocker.net/) as our LRS. If you have an LRS setup just input the xAPI endpoint, usename and password.
 

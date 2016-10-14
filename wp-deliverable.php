@@ -23,7 +23,7 @@ Plugin Name: Deliverable
 Plugin URI: http://github.com/tunapanda/wp-deliverable
 GitHub Plugin URI: http://github.com/tunapanda/wp-deliverable
 Description: Lets learners submit deliverables and have coaches review them.
-Version: 0.0.3
+Version: 0.0.4
 */
 
 /**
@@ -64,14 +64,18 @@ function deliverable_admin_menu() {
 	    'deliverable_create_review_page'
 	);
 
-	add_submenu_page(
-	    'deliverables',
-	    'xAPI Settings',
-	    'xAPI Settings',
-	    'manage_options',
-	    'deliverable_xapi_settings',
-	    'deliverable_create_xapi_settings_page'
-	);
+	$settings=apply_filters("deliverable-xapi-auth-settings",NULL);
+
+	if (!$settings) {
+		add_submenu_page(
+		    'deliverables',
+		    'xAPI Settings',
+		    'xAPI Settings',
+		    'manage_options',
+		    'deliverable_xapi_settings',
+		    'deliverable_create_xapi_settings_page'
+		);
+	}
 }
 
 add_action('admin_menu','deliverable_admin_menu');

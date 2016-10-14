@@ -13,7 +13,7 @@ class ReviewPageController {
 	 * List pending submissions for current user.
 	 */
 	function process() {
-		$wordsNeeded=20;
+		$wordsNeeded=10;
 
 		if (isset($_REQUEST["submissionId"])) {
 			if (str_word_count($_REQUEST["comment"])<$wordsNeeded) {
@@ -38,14 +38,27 @@ class ReviewPageController {
 			}
 		}
 
-		$groups=WpGroup::getGroupsForCurrentUser();
 		$submissions=array();
 
-		foreach ($groups as $group) {
-			$deliverables=Deliverable::findAllBy("reviewGroup",$group->getSlug());
+		// No groups available, show all submitted work.
+		if (!WpGroup::getAllGroups()) {
+			$deliverables=Deliverable::findAll();
 			foreach ($deliverables as $deliverable) {
 				foreach ($deliverable->getPendingSubmissions() as $submission) {
 					$submissions[]=$submission;
+				}
+			}
+		}
+
+		// Show submitted work for the gropus the use belong to.
+		else {
+			$groups=WpGroup::getGroupsForCurrentUser();
+			foreach ($groups as $group) {
+				$deliverables=Deliverable::findAllBy("reviewGroup",$group->getSlug());
+				foreach ($deliverables as $deliverable) {
+					foreach ($deliverable->getPendingSubmissions() as $submission) {
+						$submissions[]=$submission;
+					}
 				}
 			}
 		}

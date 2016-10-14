@@ -6,7 +6,7 @@ use \Exception;
 require_once ABSPATH.'wp-admin/includes/plugin.php';
 
 /**
- * Pragmatic groupt user checking.
+ * Pragmatic group user checking.
  */
 class WpGroup {
 

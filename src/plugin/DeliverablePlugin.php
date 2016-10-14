@@ -21,12 +21,21 @@ class DeliverablePlugin {
 	 * Get xapi endpoint, if configured.
 	 */
 	public function getXapi() {
-		$endpoint=get_option("deliverable_xapi_endpoint_url");
-		$username=get_option("deliverable_xapi_username");
-		$password=get_option("deliverable_xapi_password");
+		$settings=apply_filters("deliverable-xapi-auth-settings",NULL);
 
-		if ($endpoint)
-			return new Xapi($endpoint,$username,$password);
+		if (!$settings)
+			$settings=array(
+				"endpoint_url"=>get_option("deliverable_xapi_endpoint_url"),
+				"username"=>get_option("deliverable_xapi_username"),
+				"password"=>get_option("deliverable_xapi_password"),
+			);
+
+		if ($settings["endpoint_url"])
+			return new Xapi(
+				$settings["endpoint_url"],
+				$settings["username"],
+				$settings["password"]
+			);
 
 		else
 			return NULL;

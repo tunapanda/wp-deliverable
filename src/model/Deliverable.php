@@ -2,14 +2,14 @@
 
 namespace wpdeliverable;
 
-require_once __DIR__."/../../ext/smartrecord/SmartRecord.php";
+require_once __DIR__."/../../ext/wprecord/WpRecord.php";
 
-use \SmartRecord;
+use \WpRecord;
 
 /**
  * A cashgame.
  */
-class Deliverable extends SmartRecord {
+class Deliverable extends WpRecord {
 
 	/**
 	 * Constructor.

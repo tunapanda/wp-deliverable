@@ -2,16 +2,16 @@
 
 namespace wpdeliverable;
 
-require_once __DIR__."/../../ext/smartrecord/SmartRecord.php";
+require_once __DIR__."/../../ext/wprecord/WpRecord.php";
 require_once __DIR__."/../plugin/DeliverablePlugin.php";
 
-use \SmartRecord;
+use \WpRecord;
 use \Exception;
 
 /**
  * A cashgame.
  */
-class DeliverableSubmission extends SmartRecord {
+class DeliverableSubmission extends WpRecord {
 
 	private $user;
 	private $reviewUser;

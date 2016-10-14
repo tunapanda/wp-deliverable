@@ -39,7 +39,9 @@ class DeliverableSyncer {
 	/**
 	 * Update/create resource.
 	 */
-	public function updateResource($slug, $data) {
+	public function updateResource($slug, $info) {
+		$data=$info->getData();
+
 		$deliverable=Deliverable::findOneBy("slug",$slug);
 		if (!$deliverable)
 			$deliverable=new Deliverable();

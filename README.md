@@ -1,6 +1,14 @@
 # wp-deliverable
 Wordpress plugin that lets learners submit deliverables and have coaches review them. 
 
+## Overview
+* It is possible to create a number of deliverables. 
+* Each deliverable defines some work that a student needs to do.
+* It is possible to place a deliverable on a WordPress page or post.
+* Students can submit their work from the page where the deliverable is placed.
+* As studens submit their work, teachers who are qualified to grate that type of work will be notified.
+* When a teacher grades the work done by a student as satisfactory, an xAPI statement will be generated reflecting this.
+
 ## How to setup
 To install the plugin just clone down this repository into your wordpress plugins repository. You will then need to activate the plugin in the wordpress plugins menu. 
 
